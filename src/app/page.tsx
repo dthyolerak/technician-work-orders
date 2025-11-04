@@ -1,12 +1,13 @@
 import { list_work_orders } from '@/services/workOrderRPC';
 import { WorkOrdersList } from '@/components/work-orders/WorkOrdersList';
+import { WorkOrder } from '@/data/workOrderStore';
 
 /**
  * Home page displaying the list of work orders.
  * This is a Server Component that fetches data and passes it to the client component.
  */
 export default async function HomePage() {
-  let workOrders;
+  let workOrders: WorkOrder[] = [];
   let error: string | null = null;
 
   try {

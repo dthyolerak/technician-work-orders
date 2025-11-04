@@ -7,7 +7,7 @@ import { WorkOrderTableRow } from './WorkOrderTableRow';
 interface WorkOrdersTableProps {
   workOrders: WorkOrder[];
   onEdit: (id: string) => void;
-  onDelete: (id: string) => void;
+  onDelete: (id: string, title: string) => void;
 }
 
 /**

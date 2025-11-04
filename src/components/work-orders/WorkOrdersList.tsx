@@ -1,44 +1,63 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo } from 'react';
+import { useRouter } from 'next/navigation';
 import { WorkOrder } from '@/data/workOrderStore';
 import { WorkOrdersTable } from './WorkOrdersTable';
 import { SearchFilter } from './SearchFilter';
 import { LoadingState } from './LoadingState';
 import { EmptyState } from './EmptyState';
+import { DeleteConfirmationModal } from './DeleteConfirmationModal';
+import { Pagination } from './Pagination';
 
 interface WorkOrdersListProps {
   initialWorkOrders: WorkOrder[];
   isLoading?: boolean;
 }
 
+const ITEMS_PER_PAGE = 10;
+
 /**
  * Main client component for displaying the work orders list.
- * Handles filtering, search, and user interactions.
+ * Handles filtering, search, pagination, and user interactions.
  */
 export function WorkOrdersList({ initialWorkOrders, isLoading = false }: WorkOrdersListProps) {
+  const router = useRouter();
   const [filteredWorkOrders, setFilteredWorkOrders] = useState<WorkOrder[]>(initialWorkOrders);
-  const [isDeleting, setIsDeleting] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [workOrderToDelete, setWorkOrderToDelete] = useState<{ id: string; title: string } | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const handleFiltered = useCallback((filtered: WorkOrder[]) => {
     setFilteredWorkOrders(filtered);
+    setCurrentPage(1); // Reset to first page when filter changes
   }, []);
+
+  // Paginate filtered results
+  const paginatedWorkOrders = useMemo(() => {
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    const endIndex = startIndex + ITEMS_PER_PAGE;
+    return filteredWorkOrders.slice(startIndex, endIndex);
+  }, [filteredWorkOrders, currentPage]);
+
+  const totalPages = Math.ceil(filteredWorkOrders.length / ITEMS_PER_PAGE);
 
   const handleEdit = useCallback((id: string) => {
-    // TODO: Navigate to edit page or open edit modal
-    console.log('Edit work order:', id);
-    // For now, just show an alert
-    alert(`Edit functionality for work order ${id} will be implemented next.`);
+    router.push(`/work-orders/${id}/edit`);
+  }, [router]);
+
+  const handleDeleteClick = useCallback((id: string, title: string) => {
+    setWorkOrderToDelete({ id, title });
+    setDeleteModalOpen(true);
   }, []);
 
-  const handleDelete = useCallback(async (id: string) => {
-    if (!confirm('Are you sure you want to delete this work order?')) {
-      return;
-    }
+  const handleDeleteConfirm = useCallback(async () => {
+    if (!workOrderToDelete) return;
 
-    setIsDeleting(id);
+    setIsDeleting(true);
     try {
-      const response = await fetch(`/api/work-orders/${id}`, {
+      const response = await fetch(`/api/work-orders/${workOrderToDelete.id}`, {
         method: 'DELETE',
       });
 
@@ -46,22 +65,26 @@ export function WorkOrdersList({ initialWorkOrders, isLoading = false }: WorkOrd
         throw new Error('Failed to delete work order');
       }
 
-      // Refresh the page to show updated list
-      window.location.reload();
+      // Close modal and refresh
+      setDeleteModalOpen(false);
+      setWorkOrderToDelete(null);
+      router.refresh();
     } catch (error) {
       console.error('Error deleting work order:', error);
       alert('Failed to delete work order. Please try again.');
     } finally {
-      setIsDeleting(null);
+      setIsDeleting(false);
     }
+  }, [workOrderToDelete, router]);
+
+  const handleDeleteCancel = useCallback(() => {
+    setDeleteModalOpen(false);
+    setWorkOrderToDelete(null);
   }, []);
 
   const handleAddNew = useCallback(() => {
-    // TODO: Navigate to create page or open create modal
-    console.log('Add new work order');
-    // For now, just show an alert
-    alert('Create work order functionality will be implemented next.');
-  }, []);
+    router.push('/work-orders/new');
+  }, [router]);
 
   if (isLoading) {
     return <LoadingState />;
@@ -124,23 +147,34 @@ export function WorkOrdersList({ initialWorkOrders, isLoading = false }: WorkOrd
           </p>
         </div>
       ) : (
-        <WorkOrdersTable
-          workOrders={filteredWorkOrders}
-          onEdit={handleEdit}
-          onDelete={handleDelete}
-        />
+        <>
+          <WorkOrdersTable
+            workOrders={paginatedWorkOrders}
+            onEdit={handleEdit}
+            onDelete={handleDeleteClick}
+          />
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
+              itemsPerPage={ITEMS_PER_PAGE}
+              totalItems={filteredWorkOrders.length}
+            />
+          )}
+        </>
       )}
 
-      {/* Loading overlay for delete operation */}
-      {isDeleting && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="rounded-lg bg-white p-6 dark:bg-gray-800">
-            <div className="mb-4 text-center">
-              <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-blue-600 border-r-transparent"></div>
-            </div>
-            <p className="text-sm text-gray-600 dark:text-gray-400">Deleting work order...</p>
-          </div>
-        </div>
+      {/* Delete Confirmation Modal */}
+      {workOrderToDelete && (
+        <DeleteConfirmationModal
+          isOpen={deleteModalOpen}
+          workOrderTitle={workOrderToDelete.title}
+          onConfirm={handleDeleteConfirm}
+          onCancel={handleDeleteCancel}
+          isDeleting={isDeleting}
+        />
       )}
     </div>
   );

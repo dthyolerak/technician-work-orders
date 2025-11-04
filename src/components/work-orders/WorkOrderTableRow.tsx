@@ -1,12 +1,13 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { WorkOrder } from '@/data/workOrderStore';
 import { formatDistanceToNow } from 'date-fns';
 
 interface WorkOrderTableRowProps {
   workOrder: WorkOrder;
   onEdit: (id: string) => void;
-  onDelete: (id: string) => void;
+  onDelete: (id: string, title: string) => void;
 }
 
 /**
@@ -14,6 +15,8 @@ interface WorkOrderTableRowProps {
  * Displays work order data with formatted dates and priority/status badges.
  */
 export function WorkOrderTableRow({ workOrder, onEdit, onDelete }: WorkOrderTableRowProps) {
+  const router = useRouter();
+
   const formatDate = (dateString: string) => {
     try {
       const date = new Date(dateString);
@@ -21,6 +24,14 @@ export function WorkOrderTableRow({ workOrder, onEdit, onDelete }: WorkOrderTabl
     } catch {
       return dateString;
     }
+  };
+
+  const handleRowClick = (e: React.MouseEvent) => {
+    // Don't navigate if clicking on action buttons
+    if ((e.target as HTMLElement).closest('button')) {
+      return;
+    }
+    router.push(`/work-orders/${workOrder.id}`);
   };
 
   const getPriorityColor = (priority: WorkOrder['priority']) => {
@@ -51,12 +62,19 @@ export function WorkOrderTableRow({ workOrder, onEdit, onDelete }: WorkOrderTabl
 
   return (
     <tr
-      className="hover:bg-gray-50 dark:hover:bg-gray-700/50"
+      className="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50"
       tabIndex={0}
       role="row"
       aria-label={`Work order: ${workOrder.title}`}
+      onClick={handleRowClick}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          handleRowClick(e as any);
+        }
+      }}
     >
-      <td className="whitespace-nowrap px-4 py-4 text-sm font-medium text-gray-900 dark:text-gray-100 sm:px-6">
+      <td className="whitespace-nowrap px-4 py-4 text-sm font-medium text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300 sm:px-6">
         <div className="max-w-xs truncate" title={workOrder.title}>
           {workOrder.title}
         </div>
@@ -90,7 +108,7 @@ export function WorkOrderTableRow({ workOrder, onEdit, onDelete }: WorkOrderTabl
           </button>
           <span className="text-gray-300 dark:text-gray-600">|</span>
           <button
-            onClick={() => onDelete(workOrder.id)}
+            onClick={() => onDelete(workOrder.id, workOrder.title)}
             className="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300"
             aria-label={`Delete work order: ${workOrder.title}`}
             tabIndex={0}
