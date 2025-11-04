@@ -45,6 +45,7 @@ export default async function EditWorkOrderPage({ params }: EditWorkOrderPagePro
               title: workOrder.title,
               description: workOrder.description,
               priority: workOrder.priority,
+              status: workOrder.status,
             }}
           />
         </div>
