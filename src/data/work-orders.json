@@ -1,27 +1,11 @@
 [
   {
-    "id": "6253242b-78ee-4dbf-8461-a600fece75ca",
-    "title": "HVAC System Maintenance - Building A",
-    "description": "Perform routine maintenance on the central air conditioning unit in Building A. Check filters, inspect refrigerant levels, and test thermostat functionality.",
-    "priority": "High",
-    "status": "Open",
-    "updatedAt": "2025-11-04T19:28:26.020Z"
-  },
-  {
     "id": "840f45b5-7f2b-4407-ae7d-2d8598096f13",
     "title": "Electrical Panel Inspection - Warehouse",
     "description": "Complete quarterly inspection of the main electrical panel in the warehouse. Verify all connections are secure and check for any signs of overheating or corrosion.",
     "priority": "Medium",
     "status": "In Progress",
     "updatedAt": "2025-11-04T16:28:26.020Z"
-  },
-  {
-    "id": "53136831-3258-46c4-b0d7-7a4dfdae45de",
-    "title": "Plumbing Leak Repair - Restroom 3rd Floor",
-    "description": "Fix leaking faucet in the men's restroom on the 3rd floor. Replace worn-out washer and ensure proper water pressure after repair.",
-    "priority": "Low",
-    "status": "Done",
-    "updatedAt": "2025-11-03T21:28:26.020Z"
   },
   {
     "id": "67d69f52-4c33-4def-ba21-85f0cc0b101e",
@@ -46,14 +30,6 @@
     "priority": "Medium",
     "status": "Open",
     "updatedAt": "2025-11-04T13:28:26.020Z"
-  },
-  {
-    "id": "85fd3b6a-05ab-438c-88c4-77c3575a7bad",
-    "title": "Parking Lot Lighting Repair",
-    "description": "Replace burned-out LED fixtures in the north parking lot. Ensure all fixtures are properly secured and wired according to code.",
-    "priority": "Low",
-    "status": "Done",
-    "updatedAt": "2025-11-02T21:28:26.020Z"
   },
   {
     "id": "729729d8-bd97-4fd0-996d-8ef924402841",
