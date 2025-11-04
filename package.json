@@ -10,10 +10,15 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
     "seed": "tsx scripts/seed.ts"
   },
   "dependencies": {
     "date-fns": "^3.6.0",
+    "install": "^0.13.0",
+    "npx": "^10.2.2",
+    "playwright": "^1.56.1",
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "uuid": "^13.0.0",
@@ -21,6 +26,7 @@
   },
   "devDependencies": {
     "@jest/globals": "^30.2.0",
+    "@playwright/test": "^1.48.2",
     "@tailwindcss/postcss": "^4",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.0",
