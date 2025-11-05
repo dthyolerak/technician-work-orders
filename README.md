@@ -4,6 +4,13 @@
 
 ---
 
+## 📹 Demo Videos
+
+- 🎥 **[About Me - 1 Minute Introduction](https://drive.google.com/file/d/1pkCLCgIg8m8VNBbEcXK6iZ-mf1H-vfwj/view?usp=sharing)** - Get to know the developer behind this project
+- 🎥 **[Project Overview & Demo](https://drive.google.com/file/d/18FfP1FjkV4CJzZKhDzZgww32iBTlD9nF/view?usp=sharing)** - Complete walkthrough of features, architecture, and implementation
+
+---
+
 ## 📋 Project Overview
 
 **Technician Work Orders** is a modern web application designed to help technicians and managers efficiently track, create, update, and manage work orders. The application provides a clean, intuitive interface for handling work order lifecycle management with full CRUD operations.
@@ -460,56 +467,85 @@ pnpm test:e2e:ui       # Run with Playwright UI
 
 ## 📸 Screenshots & Demo
 
-### Work Orders List View
-![Work Orders List](./docs/screenshots/list-view.png)
+### Project Demo Videos
+
+- 🎥 **[About Me - 1 Minute Introduction](https://drive.google.com/file/d/1pkCLCgIg8m8VNBbEcXK6iZ-mf1H-vfwj/view?usp=sharing)** - Learn more about the developer
+- 🎥 **[Project Overview](https://drive.google.com/file/d/18FfP1FjkV4CJzZKhDzZgww32iBTlD9nF/view?usp=sharing)** - Detailed project walkthrough and features
+
+### Application Screenshots
+
+#### Work Orders List View
+![Work Orders List](./public/Screenshot/list%20orders.png)
 
 *Main dashboard showing all work orders with search, filter, and pagination*
 
-### Create Work Order Form
-![Create Form](./docs/screenshots/create-form.png)
+#### List with Filters
+![List with Filters](./public/Screenshot/list%20order%20plus%20show%20filters.png)
+
+*Work orders list with active search and filter functionality*
+
+#### Create New Work Order
+![Create New Order](./public/Screenshot/create%20new%20order.png)
 
 *Clean form interface for creating new work orders with real-time validation*
 
-### Work Order Detail Page
-![Detail View](./docs/screenshots/detail-view.png)
+#### Work Order Details
+![Work Details](./public/Screenshot/work%20details.png)
 
-*Comprehensive detail view showing all work order information*
+*Comprehensive detail view showing all work order information including priority, status, and timestamps*
 
-### Edit Work Order
-![Edit Form](./docs/screenshots/edit-form.png)
+#### Filters in Action
+![Filters](./public/Screenshot/filters.png)
 
-*Edit form with pre-filled data and status field*
+*Status filter dropdown allowing users to filter work orders by status*
+
+#### Delete Confirmation Toast
+![Delete Toast](./public/Screenshot/Delete%20toster.png)
+
+*User-friendly notification system showing delete confirmation and success messages*
 
 ---
 
 ## 🏗️ Tech Stack
 
-### Core Framework
-- **Next.js 16.0.1** (App Router) - React framework with server-side rendering
-- **React 19.2.0** - UI library
-- **TypeScript 5** - Type-safe JavaScript
+### Core Framework & Language
+- **[Next.js 16.0.1](https://nextjs.org/)** (App Router) - React framework with server-side rendering, file-based routing, and API routes
+- **[React 19.2.0](https://react.dev/)** - Modern UI library with hooks and concurrent features
+- **[TypeScript 5](https://www.typescriptlang.org/)** - Type-safe JavaScript with strict type checking
 
-### Styling
-- **Tailwind CSS 4** - Utility-first CSS framework
-- **Dark Mode** - Automatic dark mode support
+### Styling & UI
+- **[Tailwind CSS 4](https://tailwindcss.com/)** - Utility-first CSS framework for rapid UI development
+- **Dark Mode** - Automatic dark mode support with system preference detection
+- **Responsive Design** - Mobile-first approach with breakpoints for all screen sizes
 
-### Validation & Schema
-- **Zod 4.1.12** - TypeScript-first schema validation
+### Data & Validation
+- **[Zod 4.1.12](https://zod.dev/)** - TypeScript-first schema validation for runtime type safety
+- **File-based Storage** - JSON file storage (`work-orders.json`) for simplicity and ease of debugging
+- **UUID** - Unique identifier generation for work orders
 
-### Testing
-- **Jest 30.2.0** - JavaScript testing framework
-- **React Testing Library** - Component testing utilities
-- **@testing-library/user-event** - User interaction simulation
-- **Playwright 1.48.2** - E2E testing framework
+### Testing & Quality Assurance
+- **[Jest 30.2.0](https://jestjs.io/)** - JavaScript testing framework with ESM support
+- **[React Testing Library](https://testing-library.com/react)** - Component testing utilities focused on user behavior
+- **[@testing-library/user-event](https://testing-library.com/docs/user-event/intro)** - User interaction simulation for realistic tests
+- **[Playwright 1.48.2](https://playwright.dev/)** - End-to-end testing framework for browser automation
+- **@testing-library/jest-dom** - Custom Jest matchers for DOM assertions
 
-### Utilities
-- **date-fns 3.6.0** - Date formatting and manipulation
-- **uuid 13.0.0** - Unique ID generation
+### Utilities & Helpers
+- **[date-fns 3.6.0](https://date-fns.org/)** - Modern date formatting and manipulation library
+- **[uuid 13.0.0](https://www.npmjs.com/package/uuid)** - RFC4122 compliant UUID generation
 
 ### Development Tools
-- **tsx** - TypeScript execution
-- **ESLint** - Code linting
-- **TypeScript** - Type checking
+- **tsx** - TypeScript execution for scripts and development
+- **ESLint** - Code linting with Next.js configuration
+- **pnpm** - Fast, disk space efficient package manager
+- **TypeScript** - Static type checking and IntelliSense support
+
+### Architecture Patterns
+- **RPC-style Functions** - Service layer with snake_case naming convention
+- **Server Components** - Next.js App Router Server Components for data fetching
+- **Client Components** - React Client Components for interactive UI elements
+- **Modular Architecture** - Separation of concerns (data, services, components, lib)
+- **Type Safety** - End-to-end TypeScript type checking
 
 ---
 
@@ -517,6 +553,15 @@ pnpm test:e2e:ui       # Run with Playwright UI
 
 ```
 technician-work-orders/
+├── public/
+│   ├── Screenshot/                   # Application screenshots
+│   │   ├── list orders.png
+│   │   ├── list order plus show filters.png
+│   │   ├── create new order.png
+│   │   ├── work details.png
+│   │   ├── filters.png
+│   │   └── Delete toster.png
+│   └── *.svg                         # Static assets
 ├── src/
 │   ├── app/                          # Next.js App Router
 │   │   ├── api/
@@ -543,24 +588,36 @@ technician-work-orders/
 │   │       ├── Pagination.tsx         # Pagination component
 │   │       ├── DeleteConfirmationModal.tsx
 │   │       ├── LoadingState.tsx
-│   │       └── EmptyState.tsx
+│   │       ├── EmptyState.tsx
+│   │       └── index.ts              # Component exports
 │   ├── data/
 │   │   ├── work-orders.json          # JSON file storage
 │   │   └── workOrderStore.ts          # CRUD operations
 │   ├── services/
 │   │   ├── workOrderRPC.ts           # RPC-style functions
 │   │   └── workOrderService.ts        # Service layer
-│   └── lib/                           # Utility functions
+│   └── lib/
+│       └── i18n.ts                    # Internationalization dictionary
 ├── __tests__/
 │   ├── components/                   # Component tests
+│   │   ├── WorkOrdersList.test.tsx
+│   │   └── WorkOrderForm.test.tsx
 │   └── integration/                  # Integration tests
+│       └── createToList.test.tsx
 ├── e2e/
 │   └── work-orders.spec.ts           # E2E tests
 ├── scripts/
 │   └── seed.ts                       # Seed script
+├── .gitignore                        # Git ignore rules
 ├── jest.config.ts                    # Jest configuration
+├── jest.setup.ts                     # Jest setup file
 ├── playwright.config.ts              # Playwright configuration
-└── package.json
+├── tsconfig.json                     # TypeScript configuration
+├── package.json                      # Dependencies and scripts
+├── README.md                         # Project documentation
+├── README_TESTING.md                 # Testing documentation
+├── API_EXAMPLES.md                   # API documentation
+└── QUICK_TEST_EXAMPLES.md            # Quick API test examples
 ```
 
 ---
@@ -603,16 +660,6 @@ Currently, no environment variables are required. The application uses file-base
 
 ---
 
-## 🤝 Contributing
-
-This is a demonstration project. For production use, consider:
-
-1. Adding a proper database (PostgreSQL, MongoDB, etc.)
-2. Implementing authentication/authorization
-3. Adding error boundaries and better error handling
-4. Implementing proper caching strategies
-5. Adding monitoring and logging
-6. Setting up CI/CD pipelines
 
 ---
 

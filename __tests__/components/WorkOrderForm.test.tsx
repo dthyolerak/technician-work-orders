@@ -3,21 +3,23 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { WorkOrderForm } from '@/components/work-orders/WorkOrderForm';
 import { WorkOrder } from '@/data/workOrderStore';
-import { useRouter } from 'next/navigation';
 
-// Get the mocked router
+// Create mock functions
 const mockPush = jest.fn();
 const mockBack = jest.fn();
 const mockRefresh = jest.fn();
 
-const mockRouter = {
-  push: mockPush,
-  back: mockBack,
-  refresh: mockRefresh,
-};
-
+// Mock next/navigation - must be before component imports that use it
 jest.mock('next/navigation', () => ({
-  useRouter: jest.fn(() => mockRouter),
+  useRouter: jest.fn(() => ({
+    push: mockPush,
+    back: mockBack,
+    refresh: mockRefresh,
+    replace: jest.fn(),
+    prefetch: jest.fn(),
+  })),
+  usePathname: jest.fn(() => '/'),
+  useSearchParams: jest.fn(() => new URLSearchParams()),
 }));
 
 describe('WorkOrderForm Component', () => {
@@ -26,8 +28,7 @@ describe('WorkOrderForm Component', () => {
     mockPush.mockClear();
     mockBack.mockClear();
     mockRefresh.mockClear();
-    (useRouter as jest.Mock).mockReturnValue(mockRouter);
-    global.fetch = jest.fn() as jest.Mock;
+    global.fetch = jest.fn() as jest.MockedFunction<typeof fetch>;
   });
 
   describe('Create Mode', () => {
@@ -92,11 +93,11 @@ describe('WorkOrderForm Component', () => {
         updatedAt: new Date().toISOString(),
       };
 
-      (global.fetch as jest.Mock).mockResolvedValueOnce({
+      (global.fetch as jest.MockedFunction<typeof fetch>).mockResolvedValueOnce({
         ok: true,
         status: 201,
         json: async () => ({ data: mockWorkOrder }),
-      });
+      } as Response);
 
       render(<WorkOrderForm mode="create" />);
 
@@ -134,7 +135,7 @@ describe('WorkOrderForm Component', () => {
 
     it('displays server validation errors', async () => {
       const user = userEvent.setup();
-      (global.fetch as jest.Mock).mockResolvedValueOnce({
+      (global.fetch as jest.MockedFunction<typeof fetch>).mockResolvedValueOnce({
         ok: false,
         status: 400,
         json: async () => ({
@@ -144,7 +145,7 @@ describe('WorkOrderForm Component', () => {
             { path: ['title'], message: 'Title must be at least 2 characters' },
           ],
         }),
-      });
+      } as Response);
 
       render(<WorkOrderForm mode="create" />);
 
@@ -200,11 +201,11 @@ describe('WorkOrderForm Component', () => {
         updatedAt: new Date().toISOString(),
       };
 
-      (global.fetch as jest.Mock).mockResolvedValueOnce({
+      (global.fetch as jest.MockedFunction<typeof fetch>).mockResolvedValueOnce({
         ok: true,
         status: 200,
         json: async () => ({ data: updatedWorkOrder }),
-      });
+      } as Response);
 
       render(
         <WorkOrderForm

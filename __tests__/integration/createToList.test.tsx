@@ -4,21 +4,23 @@ import userEvent from '@testing-library/user-event';
 import { WorkOrdersList } from '@/components/work-orders/WorkOrdersList';
 import { WorkOrderForm } from '@/components/work-orders/WorkOrderForm';
 import { WorkOrder } from '@/data/workOrderStore';
-import { useRouter } from 'next/navigation';
 
-// Get the mocked router
+// Create mock functions
 const mockPush = jest.fn();
 const mockBack = jest.fn();
 const mockRefresh = jest.fn();
 
-const mockRouter = {
-  push: mockPush,
-  back: mockBack,
-  refresh: mockRefresh,
-};
-
+// Mock next/navigation - must be before component imports that use it
 jest.mock('next/navigation', () => ({
-  useRouter: jest.fn(() => mockRouter),
+  useRouter: jest.fn(() => ({
+    push: mockPush,
+    back: mockBack,
+    refresh: mockRefresh,
+    replace: jest.fn(),
+    prefetch: jest.fn(),
+  })),
+  usePathname: jest.fn(() => '/'),
+  useSearchParams: jest.fn(() => new URLSearchParams()),
 }));
 
 /**
@@ -43,8 +45,7 @@ describe('Create to List Integration Flow', () => {
     mockPush.mockClear();
     mockRefresh.mockClear();
     mockBack.mockClear();
-    (useRouter as jest.Mock).mockReturnValue(mockRouter);
-    global.fetch = jest.fn() as jest.Mock;
+    global.fetch = jest.fn() as jest.MockedFunction<typeof fetch>;
   });
 
   it('creates a new work order and shows it in the list', async () => {
@@ -59,11 +60,11 @@ describe('Create to List Integration Flow', () => {
     };
 
     // Mock successful creation
-    (global.fetch as jest.Mock).mockResolvedValueOnce({
+    (global.fetch as jest.MockedFunction<typeof fetch>).mockResolvedValueOnce({
       ok: true,
       status: 201,
       json: async () => ({ data: newWorkOrder }),
-    });
+    } as Response);
 
     // Step 1: Render the form
     const { rerender } = render(<WorkOrderForm mode="create" />);
@@ -93,13 +94,13 @@ describe('Create to List Integration Flow', () => {
     });
 
     // Step 4: Mock the list API to return the new work order
-    (global.fetch as jest.Mock).mockResolvedValueOnce({
+    (global.fetch as jest.MockedFunction<typeof fetch>).mockResolvedValueOnce({
       ok: true,
       status: 200,
       json: async () => ({
         data: [...initialWorkOrders, newWorkOrder],
       }),
-    });
+    } as Response);
 
     // Step 5: Render the list with updated data
     rerender(
@@ -128,11 +129,11 @@ describe('Create to List Integration Flow', () => {
     };
 
     // Mock successful creation
-    (global.fetch as jest.Mock).mockResolvedValueOnce({
+    (global.fetch as jest.MockedFunction<typeof fetch>).mockResolvedValueOnce({
       ok: true,
       status: 201,
       json: async () => ({ data: newWorkOrder }),
-    });
+    } as Response);
 
     // Render form
     render(<WorkOrderForm mode="create" />);

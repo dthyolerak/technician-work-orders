@@ -3,19 +3,22 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { WorkOrdersList } from '@/components/work-orders/WorkOrdersList';
 import { WorkOrder } from '@/data/workOrderStore';
-import { useRouter } from 'next/navigation';
 
-// Get the mocked router
+// Create mock functions
 const mockPush = jest.fn();
 const mockRefresh = jest.fn();
 
-const mockRouter = {
-  push: mockPush,
-  refresh: mockRefresh,
-};
-
+// Mock next/navigation - must be before component imports that use it
 jest.mock('next/navigation', () => ({
-  useRouter: jest.fn(() => mockRouter),
+  useRouter: jest.fn(() => ({
+    push: mockPush,
+    back: jest.fn(),
+    refresh: mockRefresh,
+    replace: jest.fn(),
+    prefetch: jest.fn(),
+  })),
+  usePathname: jest.fn(() => '/'),
+  useSearchParams: jest.fn(() => new URLSearchParams()),
 }));
 
 describe('WorkOrdersList Component', () => {
@@ -42,8 +45,7 @@ describe('WorkOrdersList Component', () => {
     jest.clearAllMocks();
     mockPush.mockClear();
     mockRefresh.mockClear();
-    (useRouter as jest.Mock).mockReturnValue(mockRouter);
-    global.fetch = jest.fn() as jest.Mock;
+    global.fetch = jest.fn() as jest.MockedFunction<typeof fetch>;
   });
 
   it('renders work orders list correctly', () => {
@@ -100,10 +102,10 @@ describe('WorkOrdersList Component', () => {
 
   it('deletes work order when confirmed in modal', async () => {
     const user = userEvent.setup();
-    (global.fetch as jest.Mock).mockResolvedValueOnce({
+    (global.fetch as jest.MockedFunction<typeof fetch>).mockResolvedValueOnce({
       ok: true,
       json: async () => ({ message: 'Work order deleted successfully' }),
-    });
+    } as Response);
 
     render(<WorkOrdersList initialWorkOrders={mockWorkOrders} />);
 
