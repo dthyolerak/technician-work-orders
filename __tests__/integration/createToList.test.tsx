@@ -17,10 +17,8 @@ const mockRouter = {
   refresh: mockRefresh,
 };
 
-const mockUseRouter = jest.fn(() => mockRouter);
-
 jest.mock('next/navigation', () => ({
-  useRouter: () => mockUseRouter(),
+  useRouter: jest.fn(() => mockRouter),
 }));
 
 /**
@@ -45,7 +43,7 @@ describe('Create to List Integration Flow', () => {
     mockPush.mockClear();
     mockRefresh.mockClear();
     mockBack.mockClear();
-    mockUseRouter.mockReturnValue(mockRouter);
+    (useRouter as jest.Mock).mockReturnValue(mockRouter);
     global.fetch = jest.fn() as jest.Mock;
   });
 
