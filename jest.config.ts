@@ -15,14 +15,18 @@ const config: Config = {
     // Handle module aliases (this will be automatically configured for you based on your tsconfig.json paths)
     '^@/(.*)$': '<rootDir>/src/$1',
   },
-  testMatch: [
-    '**/__tests__/**/*.[jt]s?(x)',
-    '**/?(*.)+(spec|test).[jt]s?(x)',
-  ],
   testPathIgnorePatterns: [
     '/node_modules/',
     '/.next/',
     '/e2e/',
+    '/AppData/',
+    '/Programs/',
+  ],
+  roots: ['<rootDir>'],
+  testMatch: [
+    '<rootDir>/__tests__/**/*.[jt]s?(x)',
+    '<rootDir>/**/__tests__/**/*.[jt]s?(x)',
+    '<rootDir>/**/?(*.)+(spec|test).[jt]s?(x)',
   ],
   collectCoverageFrom: [
     'src/**/*.{js,jsx,ts,tsx}',

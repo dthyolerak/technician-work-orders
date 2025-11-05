@@ -1,10 +1,82 @@
 [
   {
-    "title": "Fill in the details below to create a new work order",
-    "description": "Fill in the details below to create a new work order. Fill in the details below to create a new work order.",
-    "priority": "Low",
+    "id": "e6dcdc6b-e1fc-42c3-9e66-50f97f9ea8c7",
+    "title": "HVAC System Maintenance - Building A",
+    "description": "Perform routine maintenance on the central air conditioning unit in Building A. Check filters, inspect refrigerant levels, and test thermostat functionality.",
+    "priority": "High",
     "status": "Open",
-    "id": "0211a780-0e2c-4b16-b5aa-d5393449d0f1",
-    "updatedAt": "2025-11-04T23:55:50.669Z"
+    "updatedAt": "2025-11-05T06:57:55.594Z"
+  },
+  {
+    "id": "631d0045-38d4-4044-aae8-6979ec0a59db",
+    "title": "Electrical Panel Inspection - Warehouse",
+    "description": "Complete quarterly inspection of the main electrical panel in the warehouse. Verify all connections are secure and check for any signs of overheating or corrosion.",
+    "priority": "Medium",
+    "status": "In Progress",
+    "updatedAt": "2025-11-05T03:57:55.594Z"
+  },
+  {
+    "id": "db69a825-7158-4cbd-b755-8c6991feeb85",
+    "title": "Plumbing Leak Repair - Restroom 3rd Floor",
+    "description": "Fix leaking faucet in the men's restroom on the 3rd floor. Replace worn-out washer and ensure proper water pressure after repair.",
+    "priority": "Low",
+    "status": "Done",
+    "updatedAt": "2025-11-04T08:57:55.594Z"
+  },
+  {
+    "id": "c43dbb00-a1fd-4613-bb14-82027a046037",
+    "title": "Elevator Safety Inspection",
+    "description": "Conduct monthly safety inspection for Elevator #2. Test emergency stop button, verify door sensors, and check cable tension.",
+    "priority": "High",
+    "status": "Open",
+    "updatedAt": "2025-11-05T07:57:55.594Z"
+  },
+  {
+    "id": "35aff72d-6bcd-4b2e-8615-975f7ee95aab",
+    "title": "Fire Alarm System Testing",
+    "description": "Perform comprehensive testing of the fire alarm system across all floors. Test smoke detectors, heat sensors, and emergency notification systems.",
+    "priority": "High",
+    "status": "In Progress",
+    "updatedAt": "2025-11-05T05:57:55.594Z"
+  },
+  {
+    "id": "da6a04e0-aae2-4474-af92-f7a6daf69587",
+    "title": "Generator Fuel Filter Replacement",
+    "description": "Replace fuel filter on the backup generator. Test generator operation after replacement to ensure proper startup and power output.",
+    "priority": "Medium",
+    "status": "Open",
+    "updatedAt": "2025-11-05T00:57:55.594Z"
+  },
+  {
+    "id": "13b3f003-3c6a-49cc-9ca2-77e7030d6698",
+    "title": "Parking Lot Lighting Repair",
+    "description": "Replace burned-out LED fixtures in the north parking lot. Ensure all fixtures are properly secured and wired according to code.",
+    "priority": "Low",
+    "status": "Done",
+    "updatedAt": "2025-11-03T08:57:55.594Z"
+  },
+  {
+    "id": "7343fbb9-93cd-4a68-85c1-7900bb028562",
+    "title": "Boiler Temperature Calibration",
+    "description": "Calibrate temperature sensors on the main boiler system. Verify accurate readings and adjust controls as needed for optimal efficiency.",
+    "priority": "Medium",
+    "status": "In Progress",
+    "updatedAt": "2025-11-05T02:57:55.594Z"
+  },
+  {
+    "id": "0be49c0a-28ed-4c55-9b58-dc4dbf5e3351",
+    "title": "Security Camera Installation - Loading Dock",
+    "description": "Install new security camera at the loading dock entrance. Run cables, mount camera, and configure recording system integration.",
+    "priority": "Medium",
+    "status": "Open",
+    "updatedAt": "2025-11-04T20:57:55.594Z"
+  },
+  {
+    "id": "949ac7f8-b636-4206-b510-6e268ed4e836",
+    "title": "Roof Inspection and Minor Repairs",
+    "description": "Inspect roof for any signs of damage or leaks. Seal minor cracks and ensure all drainage systems are clear and functioning properly.",
+    "priority": "Low",
+    "status": "Done",
+    "updatedAt": "2025-11-02T08:57:55.594Z"
   }
 ]
