@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { WorkOrder } from '@/data/workOrderStore';
 import { formatDistanceToNow } from 'date-fns';
+import { t } from '@/lib/i18n';
 
 interface WorkOrderTableRowProps {
   workOrder: WorkOrder;
@@ -100,20 +101,20 @@ export function WorkOrderTableRow({ workOrder, onEdit, onDelete }: WorkOrderTabl
         <div className="flex items-center justify-end gap-2">
           <button
             onClick={() => onEdit(workOrder.id)}
-            className="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300"
-            aria-label={`Edit work order: ${workOrder.title}`}
+            className="text-blue-600 hover:text-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 rounded px-2 py-1 dark:text-blue-400 dark:hover:text-blue-300 dark:focus:ring-blue-400 dark:focus:ring-offset-gray-800"
+            aria-label={`${t('edit')} work order: ${workOrder.title}`}
             tabIndex={0}
           >
-            Edit
+            {t('edit')}
           </button>
-          <span className="text-gray-300 dark:text-gray-600">|</span>
+          <span className="text-gray-300 dark:text-gray-600" aria-hidden="true">|</span>
           <button
             onClick={() => onDelete(workOrder.id, workOrder.title)}
-            className="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300"
-            aria-label={`Delete work order: ${workOrder.title}`}
+            className="text-red-600 hover:text-red-900 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1 rounded px-2 py-1 dark:text-red-400 dark:hover:text-red-300 dark:focus:ring-red-400 dark:focus:ring-offset-gray-800"
+            aria-label={`${t('delete')} work order: ${workOrder.title}`}
             tabIndex={0}
           >
-            Delete
+            {t('delete')}
           </button>
         </div>
       </td>

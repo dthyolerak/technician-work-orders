@@ -1,5 +1,7 @@
 'use client';
 
+import { t } from '@/lib/i18n';
+
 interface DeleteConfirmationModalProps {
   isOpen: boolean;
   workOrderTitle: string;
@@ -69,15 +71,11 @@ export function DeleteConfirmationModal({
                   className="text-base font-semibold leading-6 text-gray-900 dark:text-gray-100"
                   id="modal-title"
                 >
-                  Delete Work Order
+                  {t('deleteConfirmation')}
                 </h3>
                 <div className="mt-2">
                   <p className="text-sm text-gray-500 dark:text-gray-400">
-                    Are you sure you want to delete the work order{' '}
-                    <span className="font-medium text-gray-900 dark:text-gray-100">
-                      &quot;{workOrderTitle}&quot;
-                    </span>
-                    ? This action cannot be undone.
+                    {t('deleteConfirmationMessage', { title: workOrderTitle })}
                   </p>
                 </div>
               </div>
@@ -89,13 +87,15 @@ export function DeleteConfirmationModal({
               onClick={onConfirm}
               disabled={isDeleting}
               className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 disabled:opacity-50 sm:ml-3 sm:w-auto"
+              aria-label={t('deleteWorkOrder')}
             >
               {isDeleting ? (
-                <span className="flex items-center">
+                <span className="flex items-center" aria-live="polite" aria-busy="true">
                   <svg
                     className="mr-2 h-4 w-4 animate-spin"
                     fill="none"
                     viewBox="0 0 24 24"
+                    aria-hidden="true"
                   >
                     <circle
                       className="opacity-25"
@@ -111,19 +111,20 @@ export function DeleteConfirmationModal({
                       fill="currentColor"
                     />
                   </svg>
-                  Deleting...
+                  {t('deleting')}
                 </span>
               ) : (
-                'Delete'
+                t('delete')
               )}
             </button>
             <button
               type="button"
               onClick={onCancel}
               disabled={isDeleting}
-              className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:outline-offset-0 disabled:opacity-50 dark:bg-gray-800 dark:text-gray-100 dark:ring-gray-600 dark:hover:bg-gray-700 sm:mt-0 sm:w-auto"
+              className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:opacity-50 dark:bg-gray-800 dark:text-gray-100 dark:ring-gray-600 dark:hover:bg-gray-700 dark:focus-visible:outline-blue-400 sm:mt-0 sm:w-auto"
+              aria-label={t('cancel')}
             >
-              Cancel
+              {t('cancel')}
             </button>
           </div>
         </div>

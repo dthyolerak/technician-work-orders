@@ -16,8 +16,10 @@ const mockRouter = {
   refresh: mockRefresh,
 };
 
+const mockUseRouter = jest.fn(() => mockRouter);
+
 jest.mock('next/navigation', () => ({
-  useRouter: jest.fn(() => mockRouter),
+  useRouter: () => mockUseRouter(),
 }));
 
 describe('WorkOrderForm Component', () => {
@@ -26,7 +28,7 @@ describe('WorkOrderForm Component', () => {
     mockPush.mockClear();
     mockBack.mockClear();
     mockRefresh.mockClear();
-    (useRouter as jest.Mock).mockReturnValue(mockRouter);
+    mockUseRouter.mockReturnValue(mockRouter);
     global.fetch = jest.fn() as jest.Mock;
   });
 

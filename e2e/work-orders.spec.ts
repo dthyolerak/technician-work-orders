@@ -15,7 +15,8 @@ test.describe('Work Orders E2E Flow', () => {
     await expect(page.getByRole('heading', { name: /work orders/i })).toBeVisible();
     await expect(page.getByText(/manage and track technician work orders/i)).toBeVisible();
 
-    // Step 2: Create a new work order
+    // Step 2: Create a new work order - wait for button to be visible
+    await expect(page.getByRole('button', { name: /add work order/i })).toBeVisible();
     await page.getByRole('button', { name: /add work order/i }).click();
     
     // Verify we're on the create page
@@ -96,6 +97,10 @@ test.describe('Work Orders E2E Flow', () => {
   });
 
   test('validates form fields correctly', async ({ page }) => {
+    // Wait for page to load and button to be visible
+    await expect(page.getByRole('heading', { name: /work orders/i })).toBeVisible();
+    await expect(page.getByRole('button', { name: /add work order/i })).toBeVisible();
+    
     // Navigate to create page
     await page.getByRole('button', { name: /add work order/i }).click();
 

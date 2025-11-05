@@ -1,0 +1,64 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - heading "Work Orders" [level=1] [ref=e7]
+        - paragraph [ref=e8]: Manage and track technician work orders
+      - button "Add new work order" [ref=e9]:
+        - img [ref=e10]
+        - text: Add Work Order
+    - generic [ref=e12]:
+      - generic [ref=e13]:
+        - generic [ref=e14]: Search work orders
+        - textbox "Search work orders by title" [ref=e15]:
+          - /placeholder: Search by title...
+      - generic [ref=e16]:
+        - generic [ref=e17]: "Filter by status:"
+        - combobox "Filter work orders by status" [ref=e18]:
+          - option "All" [selected]
+          - option "Open"
+          - option "In Progress"
+          - option "Done"
+    - generic [ref=e19]: Showing 2 of 2 work orders
+    - table "Work orders table" [ref=e21]:
+      - rowgroup [ref=e22]:
+        - row "Title Priority Status Updated At Actions" [ref=e23]:
+          - columnheader "Title" [ref=e24]
+          - columnheader "Priority" [ref=e25]
+          - columnheader "Status" [ref=e26]
+          - columnheader "Updated At" [ref=e27]
+          - columnheader "Actions" [ref=e28]
+      - rowgroup [ref=e29]:
+        - 'row "Work order: Boiler Temperature Calibration" [ref=e30] [cursor=pointer]':
+          - cell "Boiler Temperature Calibration" [ref=e31]:
+            - generic "Boiler Temperature Calibration" [ref=e32]
+          - cell "Medium" [ref=e33]:
+            - generic [ref=e34]: Medium
+          - cell "In Progress" [ref=e35]:
+            - generic [ref=e36]: In Progress
+          - cell "about 9 hours ago" [ref=e37]
+          - 'cell "Edit work order: Boiler Temperature Calibration | Delete work order: Boiler Temperature Calibration" [ref=e38]':
+            - generic [ref=e39]:
+              - 'button "Edit work order: Boiler Temperature Calibration" [ref=e40]': Edit
+              - generic [ref=e41]: "|"
+              - 'button "Delete work order: Boiler Temperature Calibration" [ref=e42]': Delete
+        - 'row "Work order: Fill in the details below to create a new work order" [ref=e43] [cursor=pointer]':
+          - cell "Fill in the details below to create a new work order" [ref=e44]:
+            - generic "Fill in the details below to create a new work order" [ref=e45]
+          - cell "Low" [ref=e46]:
+            - generic [ref=e47]: Low
+          - cell "Open" [ref=e48]:
+            - generic [ref=e49]: Open
+          - cell "31 minutes ago" [ref=e50]
+          - 'cell "Edit work order: Fill in the details below to create a new work order | Delete work order: Fill in the details below to create a new work order" [ref=e51]':
+            - generic [ref=e52]:
+              - 'button "Edit work order: Fill in the details below to create a new work order" [ref=e53]': Edit
+              - generic [ref=e54]: "|"
+              - 'button "Delete work order: Fill in the details below to create a new work order" [ref=e55]': Delete
+  - button "Open Next.js Dev Tools" [ref=e61] [cursor=pointer]:
+    - img [ref=e62]
+  - alert [ref=e65]
+```

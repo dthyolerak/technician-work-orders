@@ -9,6 +9,7 @@ import { LoadingState } from './LoadingState';
 import { EmptyState } from './EmptyState';
 import { DeleteConfirmationModal } from './DeleteConfirmationModal';
 import { Pagination } from './Pagination';
+import { t } from '@/lib/i18n';
 
 interface WorkOrdersListProps {
   initialWorkOrders: WorkOrder[];
@@ -96,7 +97,7 @@ export function WorkOrdersList({ initialWorkOrders, isLoading = false }: WorkOrd
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-            Work Orders
+            {t('workOrders')}
           </h1>
           <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
             Manage and track technician work orders
@@ -105,13 +106,14 @@ export function WorkOrdersList({ initialWorkOrders, isLoading = false }: WorkOrd
         <button
           onClick={handleAddNew}
           className="inline-flex items-center justify-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
-          aria-label="Add new work order"
+          aria-label={t('addWorkOrder')}
         >
           <svg
             className="mr-2 h-4 w-4"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
+            aria-hidden="true"
           >
             <path
               strokeLinecap="round"
@@ -120,7 +122,7 @@ export function WorkOrdersList({ initialWorkOrders, isLoading = false }: WorkOrd
               d="M12 4v16m8-8H4"
             />
           </svg>
-          Add Work Order
+          {t('addWorkOrder')}
         </button>
       </div>
 

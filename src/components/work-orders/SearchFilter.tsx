@@ -2,6 +2,7 @@
 
 import { WorkOrder } from '@/data/workOrderStore';
 import { useState, useMemo, useEffect } from 'react';
+import { t } from '@/lib/i18n';
 
 interface SearchFilterProps {
   workOrders: WorkOrder[];
@@ -47,36 +48,44 @@ export function SearchFilter({ workOrders, onFiltered }: SearchFilterProps) {
       {/* Search Input */}
       <div className="flex-1">
         <label htmlFor="search" className="sr-only">
-          Search work orders
+          {t('searchPlaceholder')}
         </label>
         <input
           id="search"
           type="text"
-          placeholder="Search by title..."
+          placeholder={t('searchPlaceholder')}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full rounded-md border border-gray-300 px-4 py-2 text-sm shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:focus:border-blue-400 dark:focus:ring-blue-400 sm:w-64"
-          aria-label="Search work orders by title"
+          className="w-full rounded-md border border-gray-300 px-4 py-2 text-sm shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:focus:border-blue-400 dark:focus:ring-blue-400 dark:focus:ring-offset-gray-800 sm:w-64"
+          aria-label={t('searchPlaceholder')}
+          aria-describedby="search-description"
         />
+        <span id="search-description" className="sr-only">
+          Search work orders by title to filter the list
+        </span>
       </div>
 
       {/* Status Filter */}
       <div className="flex items-center gap-2">
         <label htmlFor="status-filter" className="text-sm font-medium text-gray-700 dark:text-gray-300">
-          Filter by status:
+          {t('filterByStatus')}
         </label>
         <select
           id="status-filter"
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value as StatusFilter)}
-          className="rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:focus:border-blue-400 dark:focus:ring-blue-400"
-          aria-label="Filter work orders by status"
+          className="rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:focus:border-blue-400 dark:focus:ring-blue-400 dark:focus:ring-offset-gray-800"
+          aria-label={t('filterByStatus')}
+          aria-describedby="status-filter-description"
         >
-          <option value="All">All</option>
-          <option value="Open">Open</option>
-          <option value="In Progress">In Progress</option>
-          <option value="Done">Done</option>
+          <option value="All">{t('all')}</option>
+          <option value="Open">{t('open')}</option>
+          <option value="In Progress">{t('inProgress')}</option>
+          <option value="Done">{t('done')}</option>
         </select>
+        <span id="status-filter-description" className="sr-only">
+          Select a status to filter work orders
+        </span>
       </div>
     </div>
   );

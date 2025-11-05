@@ -4,6 +4,7 @@ import { useState, FormEvent } from 'react';
 import { z } from 'zod';
 import { WorkOrder } from '@/data/workOrderStore';
 import { useRouter } from 'next/navigation';
+import { t } from '@/lib/i18n';
 
 interface WorkOrderFormProps {
   initialData?: Partial<WorkOrder>;
@@ -304,7 +305,7 @@ export function WorkOrderForm({ initialData, workOrderId, mode }: WorkOrderFormP
           htmlFor="title" 
           className="block text-sm font-medium text-gray-700 dark:text-gray-300"
         >
-          Title <span className="text-red-500" aria-label="required">*</span>
+          {t('title')} <span className="text-red-500" aria-label="required">*</span>
         </label>
         <input
           type="text"
@@ -340,7 +341,7 @@ export function WorkOrderForm({ initialData, workOrderId, mode }: WorkOrderFormP
           htmlFor="description" 
           className="block text-sm font-medium text-gray-700 dark:text-gray-300"
         >
-          Description <span className="text-red-500" aria-label="required">*</span>
+          {t('description')} <span className="text-red-500" aria-label="required">*</span>
         </label>
         <textarea
           id="description"
@@ -376,7 +377,7 @@ export function WorkOrderForm({ initialData, workOrderId, mode }: WorkOrderFormP
           htmlFor="priority" 
           className="block text-sm font-medium text-gray-700 dark:text-gray-300"
         >
-          Priority <span className="text-red-500" aria-label="required">*</span>
+          {t('priority')} <span className="text-red-500" aria-label="required">*</span>
         </label>
         <select
           id="priority"
@@ -411,7 +412,7 @@ export function WorkOrderForm({ initialData, workOrderId, mode }: WorkOrderFormP
             htmlFor="status" 
             className="block text-sm font-medium text-gray-700 dark:text-gray-300"
           >
-            Status <span className="text-red-500" aria-label="required">*</span>
+            {t('status')} <span className="text-red-500" aria-label="required">*</span>
           </label>
           <select
             id="status"
@@ -447,8 +448,9 @@ export function WorkOrderForm({ initialData, workOrderId, mode }: WorkOrderFormP
           onClick={() => router.back()}
           className="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
           disabled={isSubmitting}
+          aria-label={t('cancel')}
         >
-          Cancel
+          {t('cancel')}
         </button>
         <button
           type="submit"
@@ -498,7 +500,7 @@ export function WorkOrderForm({ initialData, workOrderId, mode }: WorkOrderFormP
               Saved!
             </>
           ) : (
-            mode === 'create' ? 'Create Work Order' : 'Update Work Order'
+            mode === 'create' ? t('createWorkOrder') : t('editWorkOrder')
           )}
         </button>
       </div>
